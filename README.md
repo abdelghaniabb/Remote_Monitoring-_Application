@@ -1,6 +1,6 @@
 # Remote Lab Monitoring
 
-### Video Demo:
+### Video Demo: [link YouTube video](https://youtu.be/fO25eBljkxs)
 ### Description
 
 The Remote Lab Monitoring system is a web-based application designed for temperature monitoring and control within a laboratory environment. Implemented on a Raspberry Pi, this system provides real-time access and interaction with lab components, focusing on features such as temperature measurement and light control.
