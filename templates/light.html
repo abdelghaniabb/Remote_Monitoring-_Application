@@ -1,0 +1,149 @@
+{% extends "layout.html" %}
+
+{% block style %}
+    <style>
+        /* style for the light section*/
+        .switch {
+            position: relative; display: inline-block;
+            width: 60px;  height: 34px;
+        }
+        
+        .switch input {
+            opacity: 0; width: 0; height: 0;
+        }
+        
+        .slider {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            border-radius: 34px;
+            cursor: pointer;
+            transition: 0.4s;
+        }
+        
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            border-radius: 50%;
+            transition: 0.4s;
+        }
+        
+        input:checked + .slider {
+            background-color: #76d4a5;
+        }
+        
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+        
+        td {
+            padding-left: 20px;
+            padding-right: 20px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+        table {
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+    </style>
+{% endblock %}
+
+{% block title %}
+    light
+{% endblock %}
+
+{% block main %}
+    <h2>Light Control</h2>
+    <div>
+    <table class="mx-auto w-auto"> 
+        <tr>
+          <td> <h1><center>Bulb 1</center></h1> </td>
+          <td>
+            <center>
+              <label class="switch">
+                <input type="checkbox" id="gpio-switch-1" name="gpio-switch-1">
+                <span class="slider"></span>
+              </label>
+            </center>
+          </td>
+        </tr>
+    
+        <tr>
+          <td> <h1><center>Bulb 2</center></h1> </td>
+          <td>
+            <center>
+              <label class="switch">
+                <input type="checkbox" id="gpio-switch-2">
+                <span class="slider"></span>
+              </label>
+            </center>
+          </td>
+        </tr>
+    
+        <tr>
+          <td> <h1><center>Bulb 3</center></h1> </td>
+          <td> 
+            <center>
+              <label class="switch">
+                <input type="checkbox" id="gpio-switch-3">
+                <span class="slider"></span>
+              </label>
+            </center>
+          </td>
+        </tr>
+      </table>
+    </div>
+    
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+  initializeSwitch("gpio-switch-1", "/gpio1");
+  initializeSwitch("gpio-switch-2", "/gpio2");
+  initializeSwitch("gpio-switch-3", "/gpio3");
+});
+
+function initializeSwitch(switchId, phpFile) {
+  var xhr = new XMLHttpRequest();
+  xhr.open("GET", phpFile, true);
+  xhr.onload = function() {
+    if (xhr.readyState === xhr.DONE) {
+      if (xhr.status === 200) {
+        var status = xhr.responseText;
+        console.log("get " + status)
+        document.getElementById(switchId).checked = (status === "true");
+      } else {
+        console.error("Failed to fetch GPIO status.");
+      }
+    }
+  };
+  xhr.send();
+
+  document.getElementById(switchId).addEventListener("change", function() {
+    var isChecked = this.checked;
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", phpFile, true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
+    xhr.onload = function() {
+      if (xhr.readyState === xhr.DONE) {
+        if (xhr.status === 200) {
+          console.log("GPIO status updated successfully.");
+        } else {
+          console.error("Failed to update GPIO status.");
+        }
+      }
+    };
+    xhr.send("status=" + isChecked);
+  });
+}
+
+</script>
+
+{% endblock %}

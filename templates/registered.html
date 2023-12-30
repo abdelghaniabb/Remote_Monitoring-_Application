@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+{% block title %}
+    Request
+{% endblock %}
+
+{% block main %}
+    <h2>
+        Welcome {{ first_name }}
+    </h2>
+    <p>
+        We've received your request for registration to the remote lab experiments,
+        We'll review your application and respond soon.
+    </p>
+    <form action="/">
+        <button class="btn btn-primary" type="submit">Go to the home page</button>
+    </form>
+{% endblock %}

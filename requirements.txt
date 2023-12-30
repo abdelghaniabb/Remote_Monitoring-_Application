@@ -1,0 +1,7 @@
+Flask
+cs50
+Flask-Session
+country_list
+RPi.GPIO
+Adafruit-DHT
+

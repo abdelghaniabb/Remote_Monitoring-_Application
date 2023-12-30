@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+{% block title %}
+    remot TP
+{% endblock %}
+
+{% block main %}
+    <form action="/light">
+        <div class="mb-3">
+            <button class="btn btn-primary" type="submit">Light control</button>
+        </div>
+    </form>
+    <form action="/temperature">
+        <div class="mb-3">
+            <button class="btn btn-primary" type="submit">Lab Temperature</button>
+        </div>
+    </form>
+    
+    <form action="/camera">
+        <div class="mb-3"></div>
+            <button class="btn btn-primary" type="submit">Lab in Live </button>
+        </div>
+    </form>
+{% endblock %}

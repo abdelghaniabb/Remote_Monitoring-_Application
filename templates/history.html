@@ -1,0 +1,60 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    History
+{% endblock %}
+
+{% block style %}
+    <style>
+        /* ############*/
+table, th{
+    border: 1px solid;
+}
+
+table {
+    width: 90%;
+    margin: auto;
+}
+
+th {
+            padding-left: 20px;
+            padding-right: 20px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+        table {
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+    </style>
+{% endblock %}
+
+{% block main %}
+
+<h1>History</h1>
+<form method="post" action="/history">
+    <div class="mb-3">
+        <input class="form-control mx-auto w-auto" id="date" name="date" type="date" required>
+    </div>
+    <button class="btn btn-primary" type="submit">Search</button>
+</form>
+
+<table class="mx-auto w-auto">
+    <thead>
+        <tr>
+            <th> Temperature </th>
+            <th> Humidity </th>
+            <th> Date </th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in data %}
+            <tr>
+                <td>{{ item['temperature'] }}</td>
+                <td>{{ item['humidity'] }}</td>
+                <td>{{ item['date'] }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
