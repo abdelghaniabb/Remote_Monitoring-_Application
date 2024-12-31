@@ -27,6 +27,7 @@ def measure_temperature_DHT(DHT_PIN=21):
             continue
 
 
+
 while (True):
     humidity, temperature = measure_temperature_DHT()
     date = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
